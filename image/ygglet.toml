@@ -1,3 +1,5 @@
 platform = "x86_64-linux-gnu-rr_softticks+1"
 hostname = "ygglet"
 user = "ygglet"
+# rift is the tracer: it is not recorded, so it is not instrumented.
+uninstrumented = ["RiftRecord_jll"]

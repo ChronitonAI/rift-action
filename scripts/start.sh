@@ -75,6 +75,17 @@ docker exec -u 0 -e uid="$(id -u)" -e gid="$(id -g)" -e user="$(id -un)" -e grou
     mkdir -p "${home}"
     chown "${uid}:${gid}" "${home}"'
 
+# rr opens perf events (software ones: with software ticks it needs no hardware counters),
+# which a perf_event_paranoid above 1 refuses to the runner's user (Ubuntu's default is 4).
+paranoid=$(< /proc/sys/kernel/perf_event_paranoid)
+if (( paranoid > 1 )); then
+    if sudo -n sysctl -q kernel.perf_event_paranoid=1 2> /dev/null; then
+        echo "kernel.perf_event_paranoid: ${paranoid} -> 1"
+    else
+        echo "::warning::kernel.perf_event_paranoid is ${paranoid}: rift record needs 1 or less"
+    fi
+fi
+
 printf '%s\n' "${PATH}" > "${state}/path"
 echo "${here}/bin" >> "${GITHUB_PATH}"
 echo "YGGLET_CONTAINER=${name}" >> "${GITHUB_ENV}"

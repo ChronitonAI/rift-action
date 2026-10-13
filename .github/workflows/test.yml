@@ -58,6 +58,26 @@ jobs:
           gdb -batch -ex run -ex 'info inferiors' ./hello-c 2>&1 | tee gdb.out
           grep -q 'exited normally' gdb.out
 
+      - name: rift records with software ticks
+        env:
+          _RR_TRACE_DIR: ${{ runner.temp }}/traces
+        run: |
+          cd "$RUNNER_TEMP/cc"
+          rift --version | tee version.txt
+          grep -q record-only version.txt
+          rift record ./hello-cc | tee out.txt
+          grep -qx 'hello from C++' out.txt
+          rift record python3 -c 'import hashlib; print(hashlib.sha256(b"rift").hexdigest())'
+          rift ls
+          rift pack
+          if rift replay 2> err.txt; then exit 1; fi
+          grep -q 'not in this record-only build' err.txt
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: traces
+          path: ${{ runner.temp }}/traces
+
       - name: The step's environment, multi-line values included
         env:
           STEP_VAR: |

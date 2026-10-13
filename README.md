@@ -1,11 +1,14 @@
-# ygglet-action
+# rift-action
 
-A GitHub Action that runs a job's steps in Ygglet Linux, a Linux distribution in which every
-binary, down to glibc, libgcc and libstdc++, is compiled with the rr software ticks plugin,
-and whose GCC instruments what it compiles too. rr's software ticks (from the
-[ChronitonAI rr fork](https://github.com/ChronitonAI/rr/tree/software-ticks)) let a program
-built this way be recorded and replayed without hardware performance counters, which
-GitHub's hosted runners don't have.
+A GitHub Action for recording programs with rift, an rr-compatible record and replay
+debugger, on GitHub's hosted runners, which have no hardware performance counters. It runs a
+job's steps in Ygglet Linux, a Linux distribution in which every binary, down to glibc, libgcc
+and libstdc++, is compiled with the rr software ticks plugin, and whose GCC instruments what
+it compiles too. rr's software ticks (from the
+[ChronitonAI rr fork](https://github.com/ChronitonAI/rr/tree/software-ticks)) count progress
+in the program's own code, so a program built this way can be recorded without the CPU's
+branch counter. The image has a record-only build of rift: it records and packs traces, which
+the full rift replays.
 
 ```yaml
 jobs:
@@ -14,11 +17,18 @@ jobs:
     defaults:
       run:
         shell: ygglet {0}        # every `run:` step after the action runs in the container
+    env:
+      _RR_TRACE_DIR: ${{ github.workspace }}/traces
     steps:
       - uses: actions/checkout@v4
-      - uses: ChronitonAI/ygglet-action@main
-      - run: make && make check  # with the image's gcc, make, ...
-      - run: python3 tests.py
+      - uses: ChronitonAI/rift-action@main
+      - run: make               # with the image's gcc, so the program is instrumented
+      - run: rift record ./my-test && rift pack
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: traces
+          path: traces
 ```
 
 The action starts a container from the image, and puts `ygglet` on `PATH`, a shell that runs a
@@ -45,7 +55,20 @@ workspace. On GitHub's runners the action takes about 30 seconds (it downloads a
   since the action ran. Steps keep their `working-directory`, which must be in the work
   directory.
 - **Container.** The container (Docker, `--network host`) may use ptrace and has no seccomp
-  filter, as rr needs. `docker exec ygglet ...` reaches it from a step on the runner.
+  filter, as rr needs. `docker exec ygglet ...` reaches it from a step on the runner. The action
+  also lowers `kernel.perf_event_paranoid` to 1 (with `sudo`, where the runner allows it), since
+  rr's syscall buffer needs a perf event (a software one, not a hardware counter).
+
+## Recording
+
+`rift record <program>` records into `$_RR_TRACE_DIR` (default `~/.local/share/rr`), and `rift
+pack` makes a trace self-contained, for uploading as an artifact. `rift ls`, `rm`, `mv`, `ps`
+and `help` work as in rr; `replay` and the other commands that need a replay are not in this
+build. Replay a trace elsewhere with the full rift (`rift replay <trace>`).
+
+What runs under rift must be instrumented: the image's programs and libraries are, and so is
+what the image's `gcc`/`g++` compile in a step. Code from elsewhere (a prebuilt binary, a JIT)
+is not, and rift cannot record it without hardware counters.
 
 ## Inputs
 
@@ -66,7 +89,8 @@ a version of the action always gets the same image. It holds the packages of
 [`image/Manifest.toml`](image/Manifest.toml) (the release notes list them): GCC 14 (C, C++),
 binutils, GDB, make, CMake, Ninja, pkgconf, Python 3.12, bash, coreutils, findutils, grep,
 sed, gawk, diffutils, patch, tar, gzip, xz, zstd, bzip2, jq, less, procps, util-linux, file,
-OpenSSL, SQLite, and their libraries, on glibc 2.41 and Linux 6.9 headers. There is no package
+OpenSSL, SQLite, and their libraries, on glibc 2.41 and Linux 6.9 headers, plus the
+record-only rift (`RiftRecord_jll`, not instrumented, since it is the recorder). There is no package
 manager: an image is fixed when it is built. For other software, build it in a step (it is
 instrumented then), or build an image of your own with `ygglet build` and pass it as
 `image-url`.

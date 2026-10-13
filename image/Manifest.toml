@@ -2,7 +2,7 @@
 
 environment_id = "c41483b5-7b18-418b-98c6-ca604da144e0"  # generated
 manifest_format = "2.2"
-project_hash = "7b4945596b04132035c8a04f129c90f4674d9e16"
+project_hash = "8565678d149f01cc568dc026a1a68ff5dde6aa6a"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -383,6 +383,16 @@ uuid = "05236dd9-4125-5232-aa7c-9ec0c9b2c25a"
 version = "8.3.6"
 
     [deps.Readline_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.RiftRecord_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "85b6be47be671174f12e164faed5559bed06e393"
+registries = "YggletGeneral"
+uuid = "45ff76dc-947b-5051-b6ad-f890d55ba710"
+version = "0.1.0"
+
+    [deps.RiftRecord_jll.syntax]
     julia_version = "1.6.0"
 
 [[deps.SHA]]

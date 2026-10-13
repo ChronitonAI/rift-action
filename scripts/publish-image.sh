@@ -10,10 +10,12 @@ set -euo pipefail
 repo=$(cd "$(dirname "$0")/.." && pwd)
 ygglet=$(cd "$1" && pwd)
 out=$(realpath -m "${2:-${repo}/out}")
-gh_repo=ChronitonAI/ygglet-action
+gh_repo=ChronitonAI/rift-action
 mkdir -p "${out}"
 
-"${ygglet}/bin/ygglet" build "${repo}/image" -o "${out}/image.tar.zst"
+# The registry the manifest was resolved against: `ygglet compose-registry`'s, in the cache.
+registry=${YGGLET_CACHE:-${XDG_CACHE_HOME:-${HOME}/.cache}/ygglet}/YggletGeneral
+"${ygglet}/bin/ygglet" build "${repo}/image" -o "${out}/image.tar.zst" --registry "${registry}"
 sha=$(sha256sum "${out}/image.tar.zst" | cut -d' ' -f1)
 tag=image-${sha:0:16}
 file=ygglet-${sha:0:16}.tar.zst
@@ -34,9 +36,14 @@ mv "${out}/image.tar.zst" "${out}/${file}"
             echo "| ${jll} | ${version} |"
         done
 } > "${out}/${file}.md"
-if ! gh release view "${tag}" -R "${gh_repo}" > /dev/null 2>&1; then
-    gh release create "${tag}" -R "${gh_repo}" --title "${tag}" --latest=false \
-        --notes-file "${out}/${file}.md" "${out}/${file}"
+# With `gh api` only: `gh release` also makes a request (a HEAD on the tag) that a GitHub proxy
+# may not classify.
+if ! gh api "repos/${gh_repo}/releases/tags/${tag}" > /dev/null 2>&1; then
+    id=$(gh api "repos/${gh_repo}/releases" -f tag_name="${tag}" -f name="${tag}" \
+        -F body=@"${out}/${file}.md" -f make_latest=false --jq .id)
+    gh api --method POST -H "Content-Type: application/octet-stream" \
+        "https://uploads.github.com/repos/${gh_repo}/releases/${id}/assets?name=${file}" \
+        --input "${out}/${file}" > /dev/null
 fi
 
 cat > "${repo}/image.env" <<EOF

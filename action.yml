@@ -1,7 +1,7 @@
-name: Ygglet
+name: rift
 description: >-
-  Start a Ygglet Linux container, in which every binary is built with the rr software
-  ticks plugin, and run the job's later steps in it with `shell: ygglet {0}`.
+  Run a job's steps in Ygglet Linux, where every binary is built with rr software ticks, and
+  record them with rift without hardware performance counters (`shell: ygglet {0}`).
 branding:
   icon: box
   color: green
