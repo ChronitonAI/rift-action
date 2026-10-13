@@ -101,6 +101,12 @@ To publish a new default image, update `image/` (with `ygglet resolve`), then ru
 ## Limitations
 
 - Linux runners with Docker only, x86_64 (GitHub's `ubuntu-*` runners, or self-hosted).
+- A trace replays only on a machine whose CPU has the recording CPU's features (as with rr):
+  glibc and other libraries choose code by CPUID. rr hides features from a recording with
+  `--disable-cpuid-features` (what `rift cpufeatures` prints on the replaying machine), but that
+  needs CPUID faulting, which GitHub's runners (AMD EPYC 7763 or Intel Xeon VMs, varying from
+  run to run) don't have. Replay their traces on a machine with at least the same features, or
+  record on a self-hosted runner with CPUID faulting.
 - When a step is cancelled or times out, the process in the container is not stopped; the
   container goes away with the job's runner (or with the next run of the action on a
   self-hosted runner).
