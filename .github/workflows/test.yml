@@ -122,3 +122,34 @@ jobs:
           test "$(stat -c %U tools/a-tool "$RUNNER_TEMP/cc/hello-c" | sort -u)" = "$(id -un)"
           rm -rf tools "$RUNNER_TEMP/cc"
           ! grep -q '^ID=ygglet' /etc/os-release
+
+  inputs:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download the image
+        id: image
+        run: |
+          source image.env
+          curl -fsSL -o "$RUNNER_TEMP/image.tar.zst" "$IMAGE_URL"
+          echo "path=$RUNNER_TEMP/image.tar.zst" >> "$GITHUB_OUTPUT"
+          echo "sha256=$IMAGE_SHA256" >> "$GITHUB_OUTPUT"
+      - id: ygglet
+        uses: ./
+        with:
+          image-url: ${{ steps.image.outputs.path }}
+          image-sha256: ${{ steps.image.outputs.sha256 }}
+          name: other
+          docker-options: --memory 4g --env SET_BY_DOCKER=1
+      - name: The container from the inputs
+        shell: ygglet {0}
+        run: |
+          test "$YGGLET_CONTAINER" = other
+          test "$SET_BY_DOCKER" = 1
+          test "$(cat /sys/fs/cgroup/memory.max)" = $((4 << 30))
+      - name: The image's tarball stays
+        env:
+          IMAGE: ${{ steps.ygglet.outputs.image }}
+        run: |
+          test -f "$RUNNER_TEMP/image.tar.zst"
+          docker container inspect -f '{{.Config.Image}}' other | grep -qx "$IMAGE"

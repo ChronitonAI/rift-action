@@ -62,18 +62,18 @@ docker run -d --name "${name}" --init --network host \
     "${mounts[@]}" "${options[@]}" "${image}" sleep infinity > /dev/null
 
 # Steps run as the runner's user, so that what they write to the workspace is the runner's.
-uid=$(id -u)
-if [[ ${uid} != 0 ]]; then
-    docker exec -u 0 -e uid="${uid}" -e gid="$(id -g)" -e user="$(id -un)" -e group="$(id -gn)" \
-        "${name}" /bin/bash -euc '
-        grep -q "^[^:]*:[^:]*:${gid}:" /etc/group || echo "${group}:x:${gid}:" >> /etc/group
-        if ! grep -q "^[^:]*:[^:]*:${uid}:" /etc/passwd; then
-            echo "${user}:x:${uid}:${gid}:${user}:/home/${user}:/bin/bash" >> /etc/passwd
-        fi
-        home=$(awk -F: -v uid="${uid}" "\$3 == uid { print \$6; exit }" /etc/passwd)
-        mkdir -p "${home}"
-        chown "${uid}:${gid}" "${home}"'
-fi
+# /usr/local/bin, on the container's PATH, is for steps that install something as root.
+docker exec -u 0 -e uid="$(id -u)" -e gid="$(id -g)" -e user="$(id -un)" -e group="$(id -gn)" \
+    "${name}" /bin/bash -euc '
+    mkdir -p /usr/local/bin
+    [[ ${uid} != 0 ]] || exit 0
+    grep -q "^[^:]*:[^:]*:${gid}:" /etc/group || echo "${group}:x:${gid}:" >> /etc/group
+    if ! grep -q "^[^:]*:[^:]*:${uid}:" /etc/passwd; then
+        echo "${user}:x:${uid}:${gid}:${user}:/home/${user}:/bin/bash" >> /etc/passwd
+    fi
+    home=$(awk -F: -v uid="${uid}" "\$3 == uid { print \$6; exit }" /etc/passwd)
+    mkdir -p "${home}"
+    chown "${uid}:${gid}" "${home}"'
 
 printf '%s\n' "${PATH}" > "${state}/path"
 echo "${here}/bin" >> "${GITHUB_PATH}"
