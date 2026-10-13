@@ -1,0 +1,123 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  WORKFLOW_VAR: from the workflow
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: ygglet {0}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: ygglet
+        uses: ./
+
+      - name: The steps run in the image, as the runner's user
+        run: |
+          cat /etc/os-release
+          grep -q '^ID=ygglet' /etc/os-release
+          echo "user $(id -un) ($(id -u):$(id -g)), HOME=$HOME, PATH=$PATH, in $PWD"
+          test "$(id -u)" = "$(stat -c %u "$GITHUB_WORKSPACE")"
+          test "$PWD" = "$GITHUB_WORKSPACE"
+          touch "$HOME/writable"
+          test "$WORKFLOW_VAR" = "from the workflow"
+          test -z "${JAVA_HOME:-}"
+
+      - name: The image's binaries are instrumented
+        run: |
+          for f in /usr/bin/bash /usr/bin/python3.12 /usr/lib/libc.so.6 /usr/lib/libstdc++.so.6; do
+            readelf -nW "$(readlink -f "$f")" | grep -E '^\s+rr\s+0x0+4\s' || { echo "$f: no rr note"; exit 1; }
+          done
+
+      - name: The image's compilers instrument what they build
+        run: |
+          mkdir -p "$RUNNER_TEMP/cc" && cd "$RUNNER_TEMP/cc"
+          printf '#include <stdio.h>\nint main(void) { puts("hello from C"); return 0; }\n' > hello.c
+          printf '#include <iostream>\nint main() { std::cout << "hello from C++" << std::endl; }\n' > hello.cc
+          gcc -O2 hello.c -o hello-c
+          g++ -O2 hello.cc -o hello-cc
+          for p in hello-c hello-cc; do
+            ./$p
+            readelf -nW $p | grep -E '^\s+rr\s+0x0+4\s'
+          done
+
+      - name: ptrace works in the container
+        run: |
+          cd "$RUNNER_TEMP/cc"
+          gdb -batch -ex run -ex 'info inferiors' ./hello-c 2>&1 | tee gdb.out
+          grep -q 'exited normally' gdb.out
+
+      - name: The step's environment, multi-line values included
+        env:
+          STEP_VAR: |
+            line 1
+            line 2
+        run: |
+          test "$STEP_VAR" = "$(printf 'line 1\nline 2')"
+          echo "FROM_INSIDE=set inside" >> "$GITHUB_ENV"
+          echo "answer=42" >> "$GITHUB_OUTPUT"
+          mkdir -p "$GITHUB_WORKSPACE/tools"
+          printf '#!/bin/sh\necho tool from GITHUB_PATH\n' > "$GITHUB_WORKSPACE/tools/a-tool"
+          chmod +x "$GITHUB_WORKSPACE/tools/a-tool"
+          echo "$GITHUB_WORKSPACE/tools" >> "$GITHUB_PATH"
+          echo "## from the ygglet container" >> "$GITHUB_STEP_SUMMARY"
+        id: vars
+
+      - name: GITHUB_ENV, GITHUB_OUTPUT and GITHUB_PATH from a step in the container
+        env:
+          ANSWER: ${{ steps.vars.outputs.answer }}
+        run: |
+          test "$FROM_INSIDE" = "set inside"
+          test "$ANSWER" = 42
+          a-tool
+          test "$(command -v gcc)" = /usr/bin/gcc
+
+      - name: working-directory
+        working-directory: tools
+        run: test "$PWD" = "$GITHUB_WORKSPACE/tools"
+
+      - name: Another interpreter
+        shell: ygglet python3 {0}
+        run: |
+          import os, platform, ssl, sqlite3
+          print(platform.python_version(), ssl.OPENSSL_VERSION, sqlite3.sqlite_version)
+          assert os.environ["FROM_INSIDE"] == "set inside"
+
+      - name: As root
+        shell: ygglet --root {0}
+        run: |
+          test "$(id -u)" = 0
+          printf '#!/bin/sh\necho installed by root\n' > /usr/local/bin/installed
+          chmod +x /usr/local/bin/installed
+
+      - name: The container keeps its state between steps
+        run: installed
+
+      - name: A failing command fails the step
+        id: fails
+        continue-on-error: true
+        run: |
+          false | true
+          echo "not reached"
+
+      - name: On the host
+        shell: bash
+        env:
+          OUTCOME: ${{ steps.fails.outcome }}
+          CONTAINER: ${{ steps.ygglet.outputs.container }}
+        run: |
+          test "$OUTCOME" = failure
+          test "$CONTAINER" = ygglet
+          test "$(stat -c %U tools/a-tool "$RUNNER_TEMP/cc/hello-c" | sort -u)" = "$(id -un)"
+          rm -rf tools "$RUNNER_TEMP/cc"
+          ! grep -q '^ID=ygglet' /etc/os-release

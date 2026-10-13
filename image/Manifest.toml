@@ -1,0 +1,640 @@
+# This file is machine-generated - editing it directly is not advised
+
+environment_id = "c41483b5-7b18-418b-98c6-ca604da144e0"  # generated
+manifest_format = "2.2"
+project_hash = "7b4945596b04132035c8a04f129c90f4674d9e16"
+
+[[deps.ArgTools]]
+uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
+version = "1.2.0"
+
+[[deps.Artifacts]]
+uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+version = "1.11.0"
+
+[[deps.Base64]]
+uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
+version = "1.11.0"
+
+[[deps.Bash_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Ncurses_jll"]
+git-tree-sha1 = "31ddebe3f3149ae5a59eb777cfb014583f065cab"
+registries = "YggletGeneral"
+uuid = "1440357a-fa87-504e-ade5-63f3061077fd"
+version = "5.2.1"
+
+    [deps.Bash_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Binutils_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Zlib_jll"]
+git-tree-sha1 = "568c538982a4bed10224d16d22cdf12a623776d2"
+registries = "YggletGeneral"
+uuid = "489e263e-5428-50b0-a723-147a141b401e"
+version = "2.41.2"
+
+    [deps.Binutils_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Bzip2_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "57889aff7e902eb5213aa218d0c644ebeb10c9e3"
+registries = "YggletGeneral"
+uuid = "6e34b625-4abd-537c-b88f-471c36dfa7a0"
+version = "1.0.12"
+
+    [deps.Bzip2_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.CMake_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "OpenSSL_jll"]
+git-tree-sha1 = "2e278aa95f0319069f8966ffe122e5a4fdb708ed"
+registries = "YggletGeneral"
+uuid = "3f4e10e2-61f2-5801-8945-23b9d642d0e6"
+version = "4.4.3"
+
+    [deps.CMake_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.CompilerSupportLibraries_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "bb3df801704fb6d7bb9e09ad79a1c53435d8ab5e"
+registries = "YggletGeneral"
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+version = "14.2.9"
+
+    [deps.CompilerSupportLibraries_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Dates]]
+deps = ["Printf"]
+uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
+version = "1.11.0"
+
+[[deps.Downloads]]
+deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
+uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+version = "1.7.0"
+
+[[deps.Expat_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "9e267f9b31aef879bcd95c20aee41b1ddbf4aaa3"
+registries = "YggletGeneral"
+uuid = "2e619515-83b5-522b-bb60-26c02a35a201"
+version = "2.8.6"
+
+    [deps.Expat_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.FileWatching]]
+uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
+version = "1.11.0"
+
+[[deps.GCC_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "d0dc5f54084a8ed55646a7d8e934bf0ea7251432"
+registries = "YggletGeneral"
+uuid = "ec15993a-68c6-5861-8652-ef539d7ffb0b"
+version = "14.2.9"
+
+    [deps.GCC_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.GDB_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "Expat_jll", "GMP_jll", "LazyJLLWrappers", "Libdl", "MPFR_jll", "Ncurses_jll", "Python_jll", "XZ_jll", "Zlib_jll"]
+git-tree-sha1 = "026ea5d6ef443c6f52f4f087d041e39850657641"
+registries = "YggletGeneral"
+uuid = "a8b33d9f-0f8b-5197-9986-f85cbaa50c6c"
+version = "16.3.2"
+
+    [deps.GDB_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.GMP_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "4dbfefec746911c19244a9afb8519302ff735382"
+registries = "YggletGeneral"
+uuid = "781609d7-10c4-51f6-84f2-b8444358ff6d"
+version = "6.3.2"
+
+    [deps.GMP_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.GNUMake_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "649f434d8b315831fe6ed61258428da764a64824"
+registries = "YggletGeneral"
+uuid = "6c1a3432-6b93-5c89-98b5-f3caf0c092ba"
+version = "4.4.3"
+
+    [deps.GNUMake_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Glibc_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "a183a42ec6615a0b76ecfc140f395f62e2852c6f"
+registries = "YggletGeneral"
+uuid = "452aa2e7-e185-58db-8ff9-d3c1fa4bc997"
+version = "2.41.4"
+
+    [deps.Glibc_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Gzip_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "6336dd19b3096a5126712f6a934885d78283d058"
+registries = "YggletGeneral"
+uuid = "be1be57a-8558-53c3-a7e5-50095f79957e"
+version = "1.14.2"
+
+    [deps.Gzip_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.JLLWrappers]]
+deps = ["Artifacts", "Preferences"]
+git-tree-sha1 = "7204148362dafe5fe6a273f855b8ccbe4df8173e"
+registries = "YggletGeneral"
+uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
+version = "1.8.0"
+
+    [deps.JLLWrappers.syntax]
+    julia_version = "1.0.0"
+
+[[deps.JuliaSyntaxHighlighting]]
+deps = ["StyledStrings"]
+uuid = "ac6e5ff7-fb65-4e79-a425-ec3bc9c03011"
+version = "1.13.0"
+
+[[deps.LazyJLLWrappers]]
+deps = ["Artifacts", "Libdl", "Pkg", "Preferences", "TOML"]
+git-tree-sha1 = "f870414a46ba1c8ab4f89ef454f1bc8440e87fce"
+registries = "YggletGeneral"
+uuid = "21706172-204c-4d4f-5420-656854206f44"
+version = "1.2.0"
+
+    [deps.LazyJLLWrappers.syntax]
+    julia_version = "1.0.0"
+
+[[deps.LibCURL]]
+deps = ["LibCURL_jll", "MozillaCACerts_jll"]
+uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
+version = "1.0.0"
+
+[[deps.LibCURL_jll]]
+deps = ["Artifacts", "JLLWrappers", "LibSSH2_jll", "Libdl", "OpenSSL_jll", "Zlib_jll", "Zstd_jll", "nghttp2_jll"]
+git-tree-sha1 = "c79dd379a398baa6829598439ace6595cb8ca160"
+registries = "YggletGeneral"
+uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
+version = "8.22.0+0"
+
+    [deps.LibCURL_jll.syntax]
+    julia_version = "1.8.0"
+
+[[deps.LibGit2]]
+deps = ["LibGit2_jll", "NetworkOptions", "Printf", "SHA"]
+uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
+version = "1.11.0"
+
+[[deps.LibGit2_jll]]
+deps = ["Artifacts", "JLLWrappers", "LibSSH2_jll", "Libdl", "OpenSSL_jll", "PCRE2_jll", "Zlib_jll"]
+git-tree-sha1 = "4cb212e7e21f571b2a0a321988b7470fb80e58ac"
+registries = "YggletGeneral"
+uuid = "e37daf67-58a4-590a-8e99-b0245dd2ffc5"
+version = "1.9.7+0"
+
+    [deps.LibGit2_jll.syntax]
+    julia_version = "1.9.0"
+
+[[deps.LibSSH2_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "OpenSSL_jll"]
+git-tree-sha1 = "344d0325b36436dd179eb4a1c7fab80759227822"
+registries = "YggletGeneral"
+uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
+version = "1.11.104+0"
+
+    [deps.LibSSH2_jll.syntax]
+    julia_version = "1.10.0"
+
+[[deps.Libdl]]
+uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+version = "1.11.0"
+
+[[deps.Libffi_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "28b33ab9901ff3977e0445295eba4623bfb7eb1d"
+registries = "YggletGeneral"
+uuid = "e9f186c6-92d2-5b65-8a66-fee21dc1b490"
+version = "3.5.4"
+
+    [deps.Libffi_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Libuuid_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "018bb9ee046ee740a0347c02b294138477f34d6d"
+registries = "YggletGeneral"
+uuid = "38a345b3-de98-5d2b-a5d3-14cd9215e700"
+version = "2.42.2"
+
+    [deps.Libuuid_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.LinuxKernelHeaders_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "e83b87ae6707f4614318acbf14967cb0a473ede0"
+registries = "YggletGeneral"
+uuid = "d754bdc3-4c87-55c0-a004-f56830624a1e"
+version = "6.9.1"
+
+    [deps.LinuxKernelHeaders_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Logging]]
+uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
+version = "1.11.0"
+
+[[deps.MPFR_jll]]
+deps = ["Artifacts", "GMP_jll", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "6fd85b5d94d56f14fef03920c8f4bedd6ef6183a"
+registries = "YggletGeneral"
+uuid = "3a97d323-0669-5f0c-9066-3539efd106a3"
+version = "4.2.4"
+
+    [deps.MPFR_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Markdown]]
+deps = ["Base64", "JuliaSyntaxHighlighting", "StyledStrings"]
+uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
+version = "1.11.0"
+
+[[deps.Mmap]]
+deps = ["Serialization"]
+uuid = "a63ad114-7e13-5084-954f-fe012c677804"
+version = "1.11.0"
+
+[[deps.MozillaCACerts_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "0dfce750ba6ce357db6a36e52f93d56a3be11b96"
+registries = "YggletGeneral"
+uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
+version = "2026.9.26"
+
+    [deps.MozillaCACerts_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Ncurses_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "d95557416ce129aeea38ad2dcb0ab2a72e23a45d"
+registries = "YggletGeneral"
+uuid = "68e3532b-a499-55ff-9963-d1c0c0748b3a"
+version = "6.6.2"
+
+    [deps.Ncurses_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.NetworkOptions]]
+uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
+version = "1.3.0"
+
+[[deps.Ninja_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "aa537172f9168550aed50cfd2ffd80973f88b722"
+registries = "YggletGeneral"
+uuid = "76642167-d241-5cee-8c94-7a494e8cb7b7"
+version = "1.13.4"
+
+    [deps.Ninja_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.OpenSSL_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "8d59913a2b2858cbe63ef0a316236b3f318b084d"
+registries = "YggletGeneral"
+uuid = "458c3c95-2e84-50aa-8efc-19380b2a3a95"
+version = "3.5.12"
+
+    [deps.OpenSSL_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.PCRE2_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "6f03f37583cfe56976c8d3783aa179752ad2452e"
+registries = "YggletGeneral"
+uuid = "efcefdf7-47ab-520b-bdef-62a2eaa19f15"
+version = "10.49.0+0"
+
+    [deps.PCRE2_jll.syntax]
+    julia_version = "1.9.0"
+
+[[deps.Pkg]]
+deps = ["ArgTools", "Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Mmap", "Printf", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "Zstd_jll", "libpicosat_jll", "p7zip_jll"]
+uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+version = "1.14.0"
+
+    [deps.Pkg.weakdeps]
+    REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[[deps.Preferences]]
+deps = ["TOML"]
+git-tree-sha1 = "5005266de4bfe50e53ff44a5cb5c540b6e47a254"
+registries = "YggletGeneral"
+uuid = "21216c6a-2e73-6563-6e65-726566657250"
+version = "1.6.0"
+
+    [deps.Preferences.syntax]
+    julia_version = "1.0.0"
+
+[[deps.Printf]]
+deps = ["Unicode"]
+uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+version = "1.11.0"
+
+[[deps.PythonPexpect_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "0c57e8f6e6191db2b18948a4bb4efdce5f8ae8f7"
+registries = "YggletGeneral"
+uuid = "7bfa5ad5-8d69-5983-8b78-73ad85a35053"
+version = "4.9.0"
+
+    [deps.PythonPexpect_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Python_jll]]
+deps = ["Artifacts", "Bzip2_jll", "Expat_jll", "LazyJLLWrappers", "Libdl", "Libffi_jll", "Ncurses_jll", "OpenSSL_jll", "Readline_jll", "SQLite_jll", "XZ_jll", "Zlib_jll"]
+git-tree-sha1 = "acee96b131d71d27e020badd2fdbe0b2612246b8"
+registries = "YggletGeneral"
+uuid = "93d3a430-8e7c-50da-8e8d-3dfcfb3baf05"
+version = "3.12.17"
+
+    [deps.Python_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Random]]
+deps = ["SHA"]
+uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+version = "1.11.0"
+
+[[deps.Readline_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Ncurses_jll"]
+git-tree-sha1 = "e2e1c23c5a8458ef431c602efbe1f1be766d7655"
+registries = "YggletGeneral"
+uuid = "05236dd9-4125-5232-aa7c-9ec0c9b2c25a"
+version = "8.3.6"
+
+    [deps.Readline_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.SHA]]
+uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+version = "1.13.0"
+
+[[deps.SQLite_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Zlib_jll"]
+git-tree-sha1 = "32068c5b2fa968bb78c167feb2e18aeb14695972"
+registries = "YggletGeneral"
+uuid = "76ed43ae-9a5d-5a62-8c75-30186b810ce8"
+version = "3.53.9"
+
+    [deps.SQLite_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Serialization]]
+uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
+version = "1.11.0"
+
+[[deps.StyledStrings]]
+uuid = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
+version = "1.13.0"
+
+[[deps.TOML]]
+deps = ["Dates"]
+uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+version = "1.0.3"
+
+[[deps.Tar]]
+deps = ["ArgTools", "SHA"]
+uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
+version = "1.10.0"
+
+[[deps.Tar_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "78dfc1b6f6f60ab58b4eebde217826eaa77bda93"
+registries = "YggletGeneral"
+uuid = "9b64493d-8859-5bf3-93d7-7c32dd38186f"
+version = "1.35.2"
+
+    [deps.Tar_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.UUIDs]]
+deps = ["Random", "SHA"]
+uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+version = "1.11.0"
+
+[[deps.Unicode]]
+uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+version = "1.11.0"
+
+[[deps.XZ_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "bef6f21c9b37eb65c8c1ef5632eac16168cacc86"
+registries = "YggletGeneral"
+uuid = "ffd25f8a-64ca-5728-b0f7-c24cf3aae800"
+version = "5.8.7"
+
+    [deps.XZ_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Zlib_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "aa08efbc0df6c1f98658be68637f6bb971fa97ce"
+registries = "YggletGeneral"
+uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
+version = "1.3.4"
+
+    [deps.Zlib_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.Zstd_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "5a0c08bd8eab27b115d3f08736ec860c2f3c797b"
+registries = "YggletGeneral"
+uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
+version = "1.5.9"
+
+    [deps.Zstd_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.coreutils_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "82733767232357baf1f60df6eb84fcefd16d87cc"
+registries = "YggletGeneral"
+uuid = "5818bda4-868b-5068-b238-e370ed6eefef"
+version = "9.11.2"
+
+    [deps.coreutils_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.diffutils_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "ab8eb1b1b1b1c42eb94d78e9ce58c6ac98c5909b"
+registries = "YggletGeneral"
+uuid = "11f5bf75-d780-529b-b59b-a3a04c974070"
+version = "3.12.2"
+
+    [deps.diffutils_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.file_jll]]
+deps = ["Artifacts", "Bzip2_jll", "LazyJLLWrappers", "Libdl", "XZ_jll", "Zlib_jll"]
+git-tree-sha1 = "4b6e4e9564028fd5ab38b063ea72841b11027d74"
+registries = "YggletGeneral"
+uuid = "9fa45d4d-1b7c-5723-af47-664aed758436"
+version = "5.41.2"
+
+    [deps.file_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.findutils_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "f85da258273d3bb375d02df76d51a5bb37c711cd"
+registries = "YggletGeneral"
+uuid = "b20c2a05-8bc5-5344-9b1c-16e3e9255d47"
+version = "4.10.1"
+
+    [deps.findutils_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.gawk_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "08df637ad5711877776b61a4e9279cc3c0ed90e8"
+registries = "YggletGeneral"
+uuid = "054acbdd-7fbc-53f6-b51a-0fe4f8189fb8"
+version = "5.4.3"
+
+    [deps.gawk_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.grep_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "f6095f717d49b8f1b2477d8c89b2a66b845c4cff"
+registries = "YggletGeneral"
+uuid = "47013893-54eb-5c9c-83b4-9a24496ece36"
+version = "3.12.2"
+
+    [deps.grep_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.jq_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "688c9dd35a00df36640b8ecde13b58078e5ceecf"
+registries = "YggletGeneral"
+uuid = "f8f80db2-c0ba-59e9-a5c3-38d72e3c5ac2"
+version = "1.7.3"
+
+    [deps.jq_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.less_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Ncurses_jll"]
+git-tree-sha1 = "7088f6d4b120a36587c2a63208033a84213f41ae"
+registries = "YggletGeneral"
+uuid = "80e8a3d7-96cb-5b92-b346-c3bbc7c9cf8e"
+version = "679.0.2"
+
+    [deps.less_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.libpicosat_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "1d220afc777acbc8a7ec224e144d2f455c2ae8b4"
+registries = "YggletGeneral"
+uuid = "6b231c3b-13f8-5ced-86ae-8860c7f75d86"
+version = "965.0.3+0"
+
+    [deps.libpicosat_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.nghttp2_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "a6d59434938cf8d0cb6b476aabdd222436a735e8"
+registries = "YggletGeneral"
+uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
+version = "1.70.0+0"
+
+    [deps.nghttp2_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.p7zip_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "b0ac832a4f0f5069b79d5e28c7e81cbd357f5348"
+registries = "YggletGeneral"
+uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
+version = "17.8.3+0"
+
+    [deps.p7zip_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.patch_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "db489a64dc240a650eda8b391dedaa7b00f47881"
+registries = "YggletGeneral"
+uuid = "c7bec4a6-5215-51fd-b0a3-64ceaaad3a34"
+version = "2.8.2"
+
+    [deps.patch_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.pkgconf_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "2fc935396ca8e36167638d3bc167bcc24da0f1da"
+registries = "YggletGeneral"
+uuid = "d1ad5c20-64ab-5c34-9515-6831b3a8590b"
+version = "2.3.1"
+
+    [deps.pkgconf_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.procps_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Ncurses_jll"]
+git-tree-sha1 = "c70c87be8e54a2daa18d657c8a490959dafc58b9"
+registries = "YggletGeneral"
+uuid = "067cb88e-f685-5f7b-ae80-0aaea8472f72"
+version = "4.0.7"
+
+    [deps.procps_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.sed_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "96a34d6c57466113f2f187731d63450eee560bb9"
+registries = "YggletGeneral"
+uuid = "8ce03227-cf0a-51af-b0b4-2693c0743e9f"
+version = "4.10.2"
+
+    [deps.sed_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.util_linux_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl", "Ncurses_jll"]
+git-tree-sha1 = "722437125ac01972d9b27bfc8bb5874f2f471fba"
+registries = "YggletGeneral"
+uuid = "a762b42e-dc87-5958-a639-9c9eec9c0153"
+version = "2.42.2"
+
+    [deps.util_linux_jll.syntax]
+    julia_version = "1.6.0"
+
+[[deps.which_jll]]
+deps = ["Artifacts", "LazyJLLWrappers", "Libdl"]
+git-tree-sha1 = "879cbe1a6eaed412cedb1d0e2bfeb8d16df0110c"
+registries = "YggletGeneral"
+uuid = "f0ac80b2-57f4-5c01-bce7-1a80ee7a9f0e"
+version = "2.21.1"
+
+    [deps.which_jll.syntax]
+    julia_version = "1.6.0"
+
+[registries.YggletGeneral]
+uuid = "2e4b3c1a-7f5d-4a8e-b6c9-0d1e2f3a4b5c"

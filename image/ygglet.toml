@@ -1,0 +1,3 @@
+platform = "x86_64-linux-gnu-rr_softticks+1"
+hostname = "ygglet"
+user = "ygglet"

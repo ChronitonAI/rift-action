@@ -1,0 +1,60 @@
+#!/bin/bash
+# The `ygglet` shell, for `shell: ygglet {0}` (or `defaults: run: shell: ygglet {0}`): runs a
+# step's script in the job's ygglet container with bash, as GitHub's `bash` shell does.
+# `shell: ygglet <command> {0}` runs it with another interpreter (`ygglet python3 {0}`), and
+# `--root` as root instead of the runner's user (`ygglet --root {0}`).
+#
+# The step keeps its working directory and environment, except for the runner machine's own
+# variables (those of /etc/environment, unchanged) and a few that belong to the host (PATH,
+# HOME, ...). PATH in the container is the image's, after the directories that steps have
+# added with GITHUB_PATH since the action ran. $YGGLET_CONTAINER names the container.
+set -euo pipefail
+
+name=${YGGLET_CONTAINER:-ygglet}
+here=$(cd "$(dirname "$0")" && pwd)
+state=${RUNNER_TEMP:-/tmp}/ygglet/${name}
+user=$(id -u):$(id -g)
+username=$(id -un)
+if [[ ${1-} == --root ]]; then
+    user=0:0
+    username=root
+    shift
+fi
+if (( $# == 0 )); then
+    echo "usage: ygglet [--root] [command...] script" >&2
+    exit 2
+fi
+(( $# > 1 )) || set -- bash --noprofile --norc -eo pipefail "$1"
+
+declare -A machine=()
+if [[ -r /etc/environment ]]; then
+    while IFS= read -r line; do
+        [[ ${line} =~ ^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]] || continue
+        value=${BASH_REMATCH[2]}
+        [[ ${value} == \"*\" ]] && value=${value:1:-1}
+        machine[${BASH_REMATCH[1]}]=${value}
+    done < /etc/environment
+fi
+host=" PATH HOME USER LOGNAME SHELL PWD OLDPWD SHLVL HOSTNAME TMPDIR LD_LIBRARY_PATH LD_PRELOAD MAIL _ "
+env=()
+while IFS= read -r -d '' var; do
+    var=${var%%=*}
+    [[ ${var} =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || continue
+    [[ ${host} == *" ${var} "* ]] && continue
+    [[ -v machine[${var}] && ${machine[${var}]} == "${!var}" ]] && continue
+    env+=(-e "${var}")
+done < <(env -0)
+
+path=/usr/local/bin:/usr/bin
+if [[ -r ${state}/path ]]; then
+    before=":$(< "${state}/path"):"
+    added=()
+    IFS=: read -ra dirs <<< "${PATH}"
+    for d in "${dirs[@]}"; do
+        [[ -z ${d} || ${d} == "${here}" || ${before} == *":${d}:"* ]] || added+=("${d}")
+    done
+    (( ${#added[@]} == 0 )) || path=$(IFS=:; echo "${added[*]}"):${path}
+fi
+
+exec docker exec -u "${user}" -w "${PWD}" "${env[@]}" \
+    -e PATH="${path}" -e USER="${username}" -e LOGNAME="${username}" "${name}" "$@"
