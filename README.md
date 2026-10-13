@@ -24,7 +24,8 @@ jobs:
 The action starts a container from the image, and puts `ygglet` on `PATH`, a shell that runs a
 step's script in that container. Use it as the job's default shell, as above, or for some steps:
 `shell: ygglet {0}`. Steps with `uses:` still run on the runner itself, and see the same
-workspace.
+workspace. On GitHub's runners the action takes about 30 seconds (it downloads and imports a
+620 MiB image).
 
 - **Shells.** `ygglet {0}` runs the script with bash, as GitHub's `bash` shell does (`bash
   --noprofile --norc -eo pipefail`). Another interpreter: `ygglet python3 {0}`. As root:
@@ -35,7 +36,8 @@ workspace.
 - **Files.** The runner's work directory (the workspace, `RUNNER_TEMP`, and the files behind
   `GITHUB_ENV`, `GITHUB_OUTPUT`, `GITHUB_PATH` and `GITHUB_STEP_SUMMARY`) is mounted at the
   same path, so all of these work from inside. The rest of the container's file system is its
-  own and persists from step to step for the rest of the job.
+  own and persists from step to step for the rest of the job: a `--root` step can install
+  into `/usr/local/bin`, say.
 - **Environment.** A step keeps its environment (`env:` at any level, `GITHUB_ENV`, `GITHUB_*`
   and `RUNNER_*`), except for the runner machine's own variables (from `/etc/environment`,
   such as `JAVA_HOME_*`) and `HOME`, `PATH` and the like. `PATH` is the image's
