@@ -33,7 +33,7 @@ if ! docker image inspect "${image}" > /dev/null 2>&1; then
     else
         tarball=${state}/image
         echo "::group::Download ${url}"
-        curl -fL --retry 5 --retry-all-errors -o "${tarball}" "${url}"
+        curl -fsSL --retry 5 --retry-all-errors -o "${tarball}" "${url}"
         echo "::endgroup::"
     fi
     [[ ${sha} == none ]] || echo "${sha}  ${tarball}" | sha256sum -c --quiet -

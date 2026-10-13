@@ -2,6 +2,7 @@ name: test
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -63,7 +64,7 @@ jobs:
             line 1
             line 2
         run: |
-          test "$STEP_VAR" = "$(printf 'line 1\nline 2')"
+          test "$STEP_VAR" = $'line 1\nline 2\n'
           echo "FROM_INSIDE=set inside" >> "$GITHUB_ENV"
           echo "answer=42" >> "$GITHUB_OUTPUT"
           mkdir -p "$GITHUB_WORKSPACE/tools"
