@@ -58,6 +58,12 @@ jobs:
           gdb -batch -ex run -ex 'info inferiors' ./hello-c 2>&1 | tee gdb.out
           grep -q 'exited normally' gdb.out
 
+      - name: The runner's CPU
+        run: |
+          grep -m1 'model name' /proc/cpuinfo
+          grep -q -w cpuid_fault /proc/cpuinfo && echo "CPUID faulting: yes" || echo "CPUID faulting: no"
+          rift cpufeatures
+
       - name: rift records with software ticks
         env:
           _RR_TRACE_DIR: ${{ runner.temp }}/traces
